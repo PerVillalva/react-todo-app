@@ -2,8 +2,9 @@ import { useState } from 'react';
 import Card from '../../UI/Card';
 import { HiPlusCircle } from 'react-icons/hi';
 
-const AddTask = ({ onAddTask }) => {
+const AddTask = ({ onAddTask, taskList }) => {
     const [taskDescription, setTaskDescription] = useState('');
+    console.log(taskList.length);
 
     const descriptionChangeHandler = (e) => {
         setTaskDescription(e.target.value);
@@ -12,14 +13,21 @@ const AddTask = ({ onAddTask }) => {
     const addTaskHandler = (event) => {
         event.preventDefault();
 
-        if (taskDescription.trim() !== '') {
-            onAddTask(taskDescription);
-            setTaskDescription('');
-        } else {
+        if (taskList.length >= 4) {
             // invalid input, show error message
             alert(
-                'You cannot submit an empty task. Please enter a task description.'
+                "You can't have more than 4 active tasks. Please clean your current tasks before adding new ones."
             );
+        } else {
+            if (taskDescription.trim() !== '') {
+                onAddTask(taskDescription);
+                setTaskDescription('');
+            } else {
+                // invalid input, show error message
+                alert(
+                    'You cannot submit an empty task. Please enter a task description.'
+                );
+            }
         }
     };
 
@@ -39,7 +47,7 @@ const AddTask = ({ onAddTask }) => {
                     <button type='submit'>
                         {' '}
                         <HiPlusCircle className='plus-icon' />
-                        <spam>Add Task</spam>
+                        <span>Add Task</span>
                     </button>
                 </div>
             </form>
