@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Card from '../../UI/Card';
+import { HiPlusCircle } from 'react-icons/hi';
 
 const AddTask = ({ onAddTask }) => {
     const [taskDescription, setTaskDescription] = useState('');
@@ -11,9 +12,15 @@ const AddTask = ({ onAddTask }) => {
     const addTaskHandler = (event) => {
         event.preventDefault();
 
-        onAddTask(taskDescription);
-
-        setTaskDescription('');
+        if (taskDescription.trim() !== '') {
+            onAddTask(taskDescription);
+            setTaskDescription('');
+        } else {
+            // invalid input, show error message
+            alert(
+                'You cannot submit an empty task. Please enter a task description.'
+            );
+        }
     };
 
     return (
@@ -29,7 +36,11 @@ const AddTask = ({ onAddTask }) => {
                     />
                 </div>
                 <div className='add-btn-container'>
-                    <button type='submit'>Add Task</button>
+                    <button type='submit'>
+                        {' '}
+                        <HiPlusCircle className='plus-icon' />
+                        <spam>Add Task</spam>
+                    </button>
                 </div>
             </form>
         </Card>

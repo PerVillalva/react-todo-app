@@ -1,5 +1,6 @@
 import EditTask from './EditTask';
 import { TaskListContext } from '../../utils/TaskListContext';
+import { HiXCircle, HiDotsCircleHorizontal } from 'react-icons/hi';
 
 const TaskList = ({ taskList, setTaskList }) => {
     /* Function called when the user clicks the "Edit" button next to a task.
@@ -34,19 +35,27 @@ const TaskList = ({ taskList, setTaskList }) => {
                                 />
                             ) : (
                                 <>
-                                    {task.description}
-                                    <button
-                                        onClick={() => handleEditTask(task.id)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            handleDeleteTask(task.id)
-                                        }
-                                    >
-                                        Delete
-                                    </button>
+                                    <span className='task-text'>
+                                        {task.description}
+                                    </span>
+                                    <div className='btn-container'>
+                                        <button
+                                            className='edit-btn'
+                                            onClick={() =>
+                                                handleEditTask(task.id)
+                                            }
+                                        >
+                                            <HiDotsCircleHorizontal />
+                                        </button>
+                                        <button
+                                            className='delete-btn'
+                                            onClick={() =>
+                                                handleDeleteTask(task.id)
+                                            }
+                                        >
+                                            <HiXCircle />
+                                        </button>
+                                    </div>
                                 </>
                             )}
                         </li>

@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react';
 import { TaskListContext } from '../../utils/TaskListContext';
+import { HiCheckCircle } from 'react-icons/hi';
+import { MdReplayCircleFilled } from 'react-icons/md';
 
 const EdiTtask = ({ description, id }) => {
     const { taskList, setTaskList } = useContext(TaskListContext);
@@ -41,16 +43,26 @@ const EdiTtask = ({ description, id }) => {
     return (
         <>
             <input
+                autoFocus
                 type='text'
                 value={description}
                 onChange={(event) => handleDescriptionChange(event, id)}
+                className='task-text'
             />
-            <button onClick={() => handleCancelEditing(currentDesc)}>
-                Cancel
-            </button>
-            <button onClick={() => handleSaveTask(id, description)}>
-                Save
-            </button>
+            <div className='btn-container'>
+                <button
+                    className='save-btn'
+                    onClick={() => handleSaveTask(id, description)}
+                >
+                    <HiCheckCircle />
+                </button>
+                <button
+                    className='cancel-btn'
+                    onClick={() => handleCancelEditing(currentDesc)}
+                >
+                    <MdReplayCircleFilled />
+                </button>
+            </div>
         </>
     );
 };
