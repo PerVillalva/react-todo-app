@@ -54,18 +54,24 @@ export const TaskContainer = styled.div`
 
     span {
         width: 100%;
+        text-decoration: ${(props) =>
+            props.taskCompleted ? 'line-through' : 'none'};
+        color: ${(props) =>
+            props.taskCompleted ? 'rgb(187, 187, 187)' : 'inherit'};
     }
 
     .complete-task {
         margin-right: 10px;
 
         button {
-            color: rgb(223, 223, 223);
+            color: ${(props) =>
+                props.taskCompleted ? '#38b000' : 'rgb(223, 223, 223)'};
             font-size: 1.75rem;
             padding-top: 4px;
 
             &:hover {
-                color: #38b000;
+                ${(props) =>
+                    props.taskCompleted ? '#38b000' : 'rgb(223, 223, 223)'};
                 opacity: 0.6;
             }
         }

@@ -1,24 +1,32 @@
-import { useContext } from 'react';
-import { TaskListContext } from '../../utils/TaskListContext';
 import { HiDotsVertical } from 'react-icons/hi';
 import { FaCheckCircle } from 'react-icons/fa';
 import { TaskContainer } from './TaskList.styled';
 
-const DisplayTask = ({ description, id }) => {
-    const { taskList, setTaskList } = useContext(TaskListContext);
+const DisplayTask = ({
+    description,
+    id,
+    taskCompleted,
+    updateTaskListFunction,
+}) => {
+    const handleTaskCompleted = (id) => {
+        updateTaskListFunction((task) => {
+            return task.id === id
+                ? { ...task, completed: !task.completed }
+                : task;
+        });
+    };
 
     const handleEditTask = (id) => {
-        const updatedTasks = taskList.map((task) => {
+        updateTaskListFunction((task) => {
             return task.id === id ? { ...task, editing: true } : task;
         });
-        setTaskList(updatedTasks);
     };
 
     return (
         <>
-            <TaskContainer editing={false}>
+            <TaskContainer editing={false} taskCompleted={taskCompleted}>
                 <div className='complete-task'>
-                    <button>
+                    <button onClick={() => handleTaskCompleted(id)}>
                         <FaCheckCircle />
                     </button>
                 </div>
