@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Card from '../../UI/Card';
 import { HiPlusCircle } from 'react-icons/hi';
+import { NewTaskContent, AddTaskBtnContainer } from './AddTask.styled';
 
 const AddTask = ({ onAddTask, taskList }) => {
     const [taskDescription, setTaskDescription] = useState('');
-    console.log(taskList.length);
 
     const descriptionChangeHandler = (e) => {
         setTaskDescription(e.target.value);
@@ -13,10 +13,10 @@ const AddTask = ({ onAddTask, taskList }) => {
     const addTaskHandler = (event) => {
         event.preventDefault();
 
-        if (taskList.length >= 4) {
+        if (taskList.length >= 3) {
             // invalid input, show error message
             alert(
-                "You can't have more than 4 active tasks. Please clean your current tasks before adding new ones."
+                "You can't have more than 3 active tasks. Please clean your current tasks before adding new ones."
             );
         } else {
             if (taskDescription.trim() !== '') {
@@ -34,22 +34,22 @@ const AddTask = ({ onAddTask, taskList }) => {
     return (
         <Card>
             <form onSubmit={addTaskHandler}>
-                <div className='task-input'>
+                <NewTaskContent>
                     <input
-                        id='description'
                         type='text'
                         placeholder='What are you working on?'
                         onChange={descriptionChangeHandler}
                         value={taskDescription}
                     />
-                </div>
-                <div className='add-btn-container'>
+                </NewTaskContent>
+
+                <AddTaskBtnContainer>
                     <button type='submit'>
                         {' '}
                         <HiPlusCircle className='plus-icon' />
                         <span>Add Task</span>
                     </button>
-                </div>
+                </AddTaskBtnContainer>
             </form>
         </Card>
     );
