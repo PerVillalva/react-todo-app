@@ -12,7 +12,12 @@ function App() {
         setTaskList((prevTaskList) => {
             return [
                 ...prevTaskList,
-                { id: uuid(), description: cDescription, editing: false },
+                {
+                    id: uuid(),
+                    description: cDescription,
+                    editing: false,
+                    completed: false,
+                },
             ];
         });
     };

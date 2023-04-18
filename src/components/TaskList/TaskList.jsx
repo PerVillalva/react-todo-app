@@ -4,6 +4,13 @@ import DisplayTask from './DisplayTask';
 import { TaskListContainer } from './TaskList.styled';
 
 const TaskList = ({ taskList, setTaskList }) => {
+    const updateTaskList = (updateFunction) => {
+        const updatedTasks = taskList.map((task) => {
+            return updateFunction(task);
+        });
+        setTaskList(updatedTasks);
+    };
+
     return (
         <>
             <TaskListContext.Provider value={{ taskList, setTaskList }}>
@@ -14,11 +21,14 @@ const TaskList = ({ taskList, setTaskList }) => {
                                 <EditTask
                                     description={task.description}
                                     id={task.id}
+                                    updateTaskListFunction={updateTaskList}
                                 />
                             ) : (
                                 <DisplayTask
                                     description={task.description}
                                     id={task.id}
+                                    taskCompleted={task.completed}
+                                    updateTaskListFunction={updateTaskList}
                                 />
                             )}
                         </li>
