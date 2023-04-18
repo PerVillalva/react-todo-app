@@ -1,5 +1,5 @@
-import Addtask from './assets/components/AddTask';
-import TaskList from './assets/components/TaskList';
+import Addtask from './components/CreateTask/AddTask';
+import TaskList from './components/TaskList/TaskList';
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import './App.css';

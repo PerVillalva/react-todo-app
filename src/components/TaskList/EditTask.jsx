@@ -1,11 +1,19 @@
 import { useContext, useState } from 'react';
 import { TaskListContext } from '../../utils/TaskListContext';
-import { HiCheckCircle } from 'react-icons/hi';
-import { MdReplayCircleFilled } from 'react-icons/md';
+import {
+    EditTaskContainer,
+    TaskContainer,
+    EditTaskFooter,
+} from './TaskList.styled';
 
 const EdiTtask = ({ description, id }) => {
     const { taskList, setTaskList } = useContext(TaskListContext);
     const [currentDesc] = useState(description);
+
+    const handleDeleteTask = (id) => {
+        const newTaskList = taskList.filter((task) => task.id !== id);
+        setTaskList(newTaskList);
+    };
 
     // Function to update the taskList based on updateFunction
     const updateTaskList = (updateFunction) => {
@@ -42,27 +50,39 @@ const EdiTtask = ({ description, id }) => {
 
     return (
         <>
-            <input
-                autoFocus
-                type='text'
-                value={description}
-                onChange={(event) => handleDescriptionChange(event, id)}
-                className='task-text'
-            />
-            <div className='btn-container'>
-                <button
-                    className='save-btn'
-                    onClick={() => handleSaveTask(id, description)}
-                >
-                    <HiCheckCircle />
-                </button>
-                <button
-                    className='cancel-btn'
-                    onClick={() => handleCancelEditing(currentDesc)}
-                >
-                    <MdReplayCircleFilled />
-                </button>
-            </div>
+            <EditTaskContainer>
+                <TaskContainer editing={true}>
+                    <input
+                        autoFocus
+                        type='text'
+                        value={description}
+                        onChange={(event) => handleDescriptionChange(event, id)}
+                    />
+                </TaskContainer>
+                <EditTaskFooter>
+                    <button
+                        className='delete-btn'
+                        onClick={() => handleDeleteTask(id)}
+                    >
+                        Delete
+                    </button>
+
+                    <div>
+                        <button
+                            className='cancel-btn'
+                            onClick={() => handleCancelEditing(currentDesc)}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            className='save-btn'
+                            onClick={() => handleSaveTask(id, description)}
+                        >
+                            Save
+                        </button>
+                    </div>
+                </EditTaskFooter>
+            </EditTaskContainer>
         </>
     );
 };

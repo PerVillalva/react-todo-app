@@ -1,5 +1,7 @@
+import { AddTaskCard } from './Card.styled';
+
 const Card = (props) => {
-    return <div className='wrapper'>{props.children}</div>;
+    return <AddTaskCard>{props.children}</AddTaskCard>;
 };
 
 export default Card;
