@@ -13,21 +13,14 @@ const AddTask = ({ onAddTask, taskList }) => {
     const addTaskHandler = (event) => {
         event.preventDefault();
 
-        if (taskList.length >= 3) {
+        if (taskDescription.trim() !== '') {
+            onAddTask(taskDescription);
+            setTaskDescription('');
+        } else {
             // invalid input, show error message
             alert(
-                "You can't have more than 3 active tasks. Please clean your current tasks before adding new ones."
+                'You cannot submit an empty task. Please enter a task description.'
             );
-        } else {
-            if (taskDescription.trim() !== '') {
-                onAddTask(taskDescription);
-                setTaskDescription('');
-            } else {
-                // invalid input, show error message
-                alert(
-                    'You cannot submit an empty task. Please enter a task description.'
-                );
-            }
         }
     };
 

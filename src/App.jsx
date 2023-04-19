@@ -23,10 +23,10 @@ function App() {
     };
 
     return (
-        <div className='App'>
+        <>
             <Addtask onAddTask={addTaskHandler} taskList={taskList} />
             <TaskList taskList={taskList} setTaskList={setTaskList} />
-        </div>
+        </>
     );
 }
 
