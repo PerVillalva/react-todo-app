@@ -45,7 +45,7 @@ export const EditTaskContainer = styled.div`
 export const TaskContainer = styled.div`
     display: flex;
     align-items: center;
-    padding: 26px 20px;
+    padding: ${(props) => (props.editing ? '26px' : '15px')} 20px;
     overflow-wrap: break-word;
     width: ${(props) => (props.editing ? '100%' : '75%')};
     color: rgb(85, 85, 85);
