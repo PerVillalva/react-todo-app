@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { TaskListContext } from '../../utils/TaskListContext';
 import {
     EditTaskContainer,
@@ -9,6 +9,26 @@ import {
 const EdiTtask = ({ description, id, updateTaskListFunction }) => {
     const { taskList, setTaskList } = useContext(TaskListContext);
     const [prevDesc] = useState(description);
+
+    const editRef = useRef();
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (!editRef.current.contains(e.target)) {
+                if (
+                    confirm(
+                        'Your changes will be lost. Are you sure you want to cancel editing this task?'
+                    )
+                ) {
+                    handleCancelEditing(prevDesc);
+                }
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const handleDeleteTask = (id) => {
         const newTaskList = taskList.filter((task) => task.id !== id);
@@ -41,41 +61,39 @@ const EdiTtask = ({ description, id, updateTaskListFunction }) => {
     };
 
     return (
-        <>
-            <EditTaskContainer>
-                <TaskContainer editing={true}>
-                    <input
-                        autoFocus
-                        type='text'
-                        value={description}
-                        onChange={(event) => handleDescriptionChange(event, id)}
-                    />
-                </TaskContainer>
-                <EditTaskFooter>
-                    <button
-                        className='delete-btn'
-                        onClick={() => handleDeleteTask(id)}
-                    >
-                        Delete
-                    </button>
+        <EditTaskContainer ref={editRef}>
+            <TaskContainer editing={true}>
+                <input
+                    autoFocus
+                    type='text'
+                    value={description}
+                    onChange={(event) => handleDescriptionChange(event, id)}
+                />
+            </TaskContainer>
+            <EditTaskFooter>
+                <button
+                    className='delete-btn'
+                    onClick={() => handleDeleteTask(id)}
+                >
+                    Delete
+                </button>
 
-                    <div>
-                        <button
-                            className='cancel-btn'
-                            onClick={() => handleCancelEditing(prevDesc)}
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            className='save-btn'
-                            onClick={() => handleSaveTask(id, description)}
-                        >
-                            Save
-                        </button>
-                    </div>
-                </EditTaskFooter>
-            </EditTaskContainer>
-        </>
+                <div>
+                    <button
+                        className='cancel-btn'
+                        onClick={() => handleCancelEditing(prevDesc)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className='save-btn'
+                        onClick={() => handleSaveTask(id, description)}
+                    >
+                        Save
+                    </button>
+                </div>
+            </EditTaskFooter>
+        </EditTaskContainer>
     );
 };
 export default EdiTtask;
