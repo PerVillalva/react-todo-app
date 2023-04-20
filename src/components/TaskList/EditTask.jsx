@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
+import useClickOutside from '../../utils/useClickOutside';
 import { TaskListContext } from '../../utils/TaskListContext';
 import {
     EditTaskContainer,
@@ -12,23 +13,16 @@ const EdiTtask = ({ description, id, updateTaskListFunction }) => {
 
     const editRef = useRef();
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (!editRef.current.contains(e.target)) {
-                if (
-                    confirm(
-                        'Your changes will be lost. Are you sure you want to cancel editing this task?'
-                    )
-                ) {
-                    handleCancelEditing(prevDesc);
-                }
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
+    const handleOutsideClick = () => {
+        if (
+            confirm(
+                'Your changes will be lost. Are you sure you want to cancel editing this task?'
+            )
+        )
+            handleCancelEditing(prevDesc);
+    };
 
-        return () =>
-            document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    useClickOutside(editRef, handleOutsideClick);
 
     const handleDeleteTask = (id) => {
         const newTaskList = taskList.filter((task) => task.id !== id);

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import useClickOutside from '../../utils/useClickOutside';
 import { v4 as uuid } from 'uuid';
 import { HiPlusCircle } from 'react-icons/hi';
 import {
@@ -11,6 +12,12 @@ import {
 const AddTask = ({ setTaskList }) => {
     const [taskDescription, setTaskDescription] = useState('');
     const [creatingTask, setCreatingTask] = useState(false);
+
+    const addTaskRef = useRef();
+
+    const handleOutsideClick = () => setCreatingTask(false);
+
+    useClickOutside(addTaskRef, handleOutsideClick);
 
     const cancelCreateHandler = () => {
         setTaskDescription('');
@@ -46,7 +53,7 @@ const AddTask = ({ setTaskList }) => {
     };
 
     return (
-        <AddTaskContainer>
+        <AddTaskContainer ref={addTaskRef}>
             {creatingTask ? (
                 <form onSubmit={addTaskHandler}>
                     <NewTaskContent>
