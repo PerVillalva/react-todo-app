@@ -1,20 +1,41 @@
 import { useState } from 'react';
-import Card from '../../UI/Card';
+import { v4 as uuid } from 'uuid';
 import { HiPlusCircle } from 'react-icons/hi';
-import { NewTaskContent, AddTaskBtnContainer } from './AddTask.styled';
+import {
+    NewTaskContent,
+    AddTaskFooter,
+    AddTaskBtnContainer,
+    AddTaskContainer,
+} from './AddTask.styled';
 
-const AddTask = ({ onAddTask, taskList }) => {
+const AddTask = ({ setTaskList }) => {
     const [taskDescription, setTaskDescription] = useState('');
+    const [creatingTask, setCreatingTask] = useState(false);
+
+    const cancelCreateHandler = () => {
+        setTaskDescription('');
+        setCreatingTask(false);
+    };
 
     const descriptionChangeHandler = (e) => {
         setTaskDescription(e.target.value);
     };
 
-    const addTaskHandler = (event) => {
-        event.preventDefault();
+    const addTaskHandler = (e) => {
+        e.preventDefault();
 
         if (taskDescription.trim() !== '') {
-            onAddTask(taskDescription);
+            setTaskList((taskList) => {
+                return [
+                    ...taskList,
+                    {
+                        id: uuid(),
+                        description: taskDescription,
+                        editing: false,
+                        completed: false,
+                    },
+                ];
+            });
             setTaskDescription('');
         } else {
             // invalid input, show error message
@@ -25,26 +46,41 @@ const AddTask = ({ onAddTask, taskList }) => {
     };
 
     return (
-        <Card>
-            <form onSubmit={addTaskHandler}>
-                <NewTaskContent>
-                    <input
-                        type='text'
-                        placeholder='What are you working on?'
-                        onChange={descriptionChangeHandler}
-                        value={taskDescription}
-                    />
-                </NewTaskContent>
+        <AddTaskContainer>
+            {creatingTask ? (
+                <form onSubmit={addTaskHandler}>
+                    <NewTaskContent>
+                        <input
+                            autoFocus
+                            type='text'
+                            placeholder='What are you working on?'
+                            onChange={descriptionChangeHandler}
+                            value={taskDescription}
+                        />
+                    </NewTaskContent>
 
+                    <AddTaskFooter>
+                        <button
+                            className='cancel-btn'
+                            onClick={() => cancelCreateHandler()}
+                        >
+                            Cancel
+                        </button>
+                        <button type='submit' className='create-btn'>
+                            Create
+                        </button>
+                    </AddTaskFooter>
+                </form>
+            ) : (
                 <AddTaskBtnContainer>
-                    <button type='submit'>
+                    <button onClick={() => setCreatingTask(true)}>
                         {' '}
                         <HiPlusCircle className='plus-icon' />
                         <span>Add Task</span>
                     </button>
                 </AddTaskBtnContainer>
-            </form>
-        </Card>
+            )}
+        </AddTaskContainer>
     );
 };
 
