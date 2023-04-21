@@ -16,6 +16,14 @@ export const TaskListHeader = styled.div`
     h2 {
         color: white;
     }
+
+    button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: white;
+        font-size: 1.75rem;
+    }
 `;
 
 export const TaskListView = styled.ul`

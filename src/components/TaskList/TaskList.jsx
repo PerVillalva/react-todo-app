@@ -1,3 +1,5 @@
+import { useState, useRef } from 'react';
+import useClickOutside from '../../utils/useClickOutside';
 import EditTask from './EditTask';
 import { TaskListContext } from '../../utils/TaskListContext';
 import DisplayTask from './DisplayTask';
@@ -6,8 +8,12 @@ import {
     TaskListView,
     TaskListHeader,
 } from './TaskList.styled';
+import { HiOutlineMenu } from 'react-icons/hi';
+import Controls from '../Controls/Controls';
 
 const TaskList = ({ taskList, setTaskList }) => {
+    const [isControlsOpen, setIsControlsOpen] = useState(false);
+
     const currentDate = new Date();
     const day = currentDate.getDate();
     const month = currentDate.toLocaleString('default', { month: 'short' });
@@ -20,14 +26,33 @@ const TaskList = ({ taskList, setTaskList }) => {
         setTaskList(updatedTasks);
     };
 
+    const controlsRef = useRef();
+
+    const handleClickOutside = () => {
+        setIsControlsOpen(false);
+    };
+
+    useClickOutside(controlsRef, handleClickOutside);
+
     return (
         <>
             <TaskListContainer>
-                <TaskListHeader>
-                    <h2>Tasks</h2>
-                    <h2>{formattedDate}</h2>
-                </TaskListHeader>
                 <TaskListContext.Provider value={{ taskList, setTaskList }}>
+                    <TaskListHeader>
+                        <h2>Tasks</h2>
+                        <h2>{formattedDate}</h2>
+                        <div style={{ position: 'relative' }} ref={controlsRef}>
+                            <button
+                                onClick={() =>
+                                    setIsControlsOpen(!isControlsOpen)
+                                }
+                            >
+                                <HiOutlineMenu />
+                            </button>
+                            <Controls isOpen={isControlsOpen} />
+                        </div>
+                    </TaskListHeader>
+
                     <TaskListView>
                         {taskList.map((task) => (
                             <li key={task.id}>
