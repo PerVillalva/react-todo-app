@@ -1,14 +1,40 @@
 import styled from 'styled-components';
 
-export const TaskListContainer = styled.ul`
+export const TaskListContainer = styled.div`
+    max-width: 475px;
+    margin: 75px auto 0;
+`;
+
+export const TaskListHeader = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    padding-bottom: 14px;
+    margin: 0 auto 15px;
+
+    h2 {
+        color: white;
+    }
+
+    button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: white;
+        font-size: 1.75rem;
+    }
+`;
+
+export const TaskListView = styled.ul`
     li {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        max-width: 400px;
+        width: 100%;
         margin: 0px auto 15px;
         background-color: white;
-        border-radius: 7px;
+        border-radius: 6px;
     }
 
     button {
