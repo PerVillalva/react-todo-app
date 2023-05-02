@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +9,8 @@
 }
 
 body {
+    background-color: ${(props) => props.theme.body};
     width: 100%;
-    background: #0b192e;
 }
 
 @media (max-width: 430px) {
@@ -15,3 +18,6 @@ body {
         padding: 0 12px;
     }
 }
+`;
+
+export default GlobalStyle;
