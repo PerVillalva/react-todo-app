@@ -9,12 +9,12 @@ export const TaskListHeader = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 2px solid ${(props) => props.theme.taskPlaceholder};
     padding-bottom: 14px;
     margin: 0 auto 15px;
 
     h2 {
-        color: white;
+        color: ${(props) => props.theme.white};
     }
 
     button {
@@ -33,7 +33,7 @@ export const TaskListView = styled.ul`
         justify-content: space-between;
         width: 100%;
         margin: 0px auto 15px;
-        background-color: white;
+        background-color: ${(props) => props.theme.white};
         border-radius: 6px;
     }
 
@@ -45,7 +45,7 @@ export const TaskListView = styled.ul`
 
     input {
         border: none;
-        color: rgb(85, 85, 85);
+        color: ${(props) => props.theme.editTaskInputText};
         font-weight: bold;
         outline: none;
         width: 100%;
@@ -57,7 +57,7 @@ export const TaskListView = styled.ul`
         align-items: center;
 
         button {
-            color: rgb(153, 153, 153);
+            color: rgb(223, 223, 223);
             font-size: 1.75rem;
             padding: 5px 14px 0px 0px;
         }
@@ -74,7 +74,7 @@ export const TaskContainer = styled.div`
     padding: ${(props) => (props.editing ? '26px' : '15px')} 20px;
     overflow-wrap: break-word;
     width: ${(props) => (props.editing ? '100%' : '75%')};
-    color: rgb(85, 85, 85);
+    color: ${(props) => props.theme.editTaskInputText};
     font-weight: bold;
     font-size: 1.2rem;
 
@@ -126,7 +126,7 @@ export const EditTaskFooter = styled.div`
     .delete-btn,
     .save-btn {
         color: white;
-        border: solid;
+        border: solid ${(props) => props.theme.editTaskFooter};
         padding: 8px 12px;
         min-width: 70px;
         border-radius: 6px;
@@ -134,17 +134,15 @@ export const EditTaskFooter = styled.div`
     }
 
     .delete-btn {
-        background-color: #d90429;
+        background-color: ${(props) => props.theme.deleteBtn};
     }
 
     .cancel-btn {
-        color: rgb(136, 136, 136);
+        color: ${(props) => props.theme.cancelBtn};
         margin-right: 14px;
     }
 
     .save-btn {
-        background-color: #008080;
+        background-color: ${(props) => props.theme.createBtn};
     }
 `;
-
-export const TaskListItem = ``;

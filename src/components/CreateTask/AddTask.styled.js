@@ -7,7 +7,7 @@ export const AddTaskContainer = styled.div`
 
 export const NewTaskContent = styled.div`
     width: 100%;
-    background: #fff;
+    background: ${(props) => props.theme.white};
     padding: 28px 50px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     border-top-right-radius: 6px;
@@ -21,7 +21,7 @@ export const NewTaskContent = styled.div`
         border: none;
 
         &::placeholder {
-            color: #bfbfbf;
+            color: ${(props) => props.theme.taskPlaceholder};
         }
     }
 `;
@@ -36,14 +36,15 @@ export const AddTaskBtnContainer = styled.div`
         font-size: 1.2rem;
         font-weight: bold;
         background-color: rgba(0, 0, 0, 0.1);
-        color: rgb(6, 113, 116);
-        border: dashed rgb(6, 113, 116);
+        color: ${(props) => props.theme.addTaskBtnOutline};
+        border: dashed;
         border-radius: 6px;
         opacity: 0.85;
 
         &:hover {
-            background-color: rgb(6, 113, 116);
-            color: white;
+            background-color: ${(props) => props.theme.addTaskBtnHover};
+            border-color: ${(props) => props.theme.addTaskBtnHover};
+            color: ${(props) => props.theme.white};
         }
 
         .plus-icon {
@@ -55,7 +56,7 @@ export const AddTaskBtnContainer = styled.div`
 
 export const AddTaskFooter = styled.div`
     display: flex;
-    background-color: rgb(239, 239, 239);
+    background-color: ${(props) => props.theme.editTaskFooter};
     width: 100%;
     padding: 14px 20px;
     justify-content: flex-end;
@@ -74,7 +75,7 @@ export const AddTaskFooter = styled.div`
     }
 
     .create-btn {
-        background-color: #008080;
+        background-color: ${(props) => props.theme.createBtn};
         color: white;
         border: solid;
         padding: 8px 12px;
@@ -84,7 +85,7 @@ export const AddTaskFooter = styled.div`
     }
 
     .cancel-btn {
-        color: rgb(136, 136, 136);
+        color: ${(props) => props.theme.cancelBtn};
         margin-right: 14px;
     }
 `;

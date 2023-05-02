@@ -8,7 +8,7 @@ import {
     TaskListView,
     TaskListHeader,
 } from './TaskList.styled';
-import { HiOutlineMenu } from 'react-icons/hi';
+import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
 import Controls from '../Controls/Controls';
 
 const TaskList = ({ taskList, setTaskList }) => {
@@ -47,7 +47,11 @@ const TaskList = ({ taskList, setTaskList }) => {
                                     setIsControlsOpen(!isControlsOpen)
                                 }
                             >
-                                <HiOutlineMenu />
+                                {isControlsOpen ? (
+                                    <HiOutlineX />
+                                ) : (
+                                    <HiOutlineMenu />
+                                )}
                             </button>
                             <Controls isOpen={isControlsOpen} />
                         </div>
